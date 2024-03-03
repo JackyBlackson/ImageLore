@@ -27,26 +27,27 @@ from django.conf.urls.static import static
 from ImageLoreFrontEnd.views import *
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'permissions', PermissionViewSet)
+# router.register(r'users', UserViewSet)
+# router.register(r'permissions', PermissionViewSet)
 
-router.register(r'tag', TagViewSet)
-router.register(r'alias/tag', TagAliasViewSet)
+router.register(r'tags', TagViewSet)
+router.register(r'aliases/tags', TagAliasViewSet)
 
-router.register(r'tag/relation/tag', TagRelationViewSet)
-router.register(r'tag/relation/post', TagPostRelationViewSet)
-router.register(r'tag/relation/folder', TagFolderRelationViewSet)
+# router.register(r'tags/relations/tag', TagRelationViewSet)
+# router.register(r'tags/relations/post', TagPostRelationViewSet)
+# router.register(r'tags/relations/folder', TagFolderRelationViewSet)
 
-router.register(r'folder', FolderView)
-router.register(r'alias/folder', FolderAliasView)
+router.register(r'folders', FolderView)
+router.register(r'aliases/folders', FolderAliasView)
 
-router.register(r'post/image', ImagePostView)
+router.register(r'posts/images', ImagePostView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('api/', include(router.urls)),
-    path('', index, name='index'),
+    path('posts/<int:id>/', post_detail, name='post_detail'),
+    path('', front_page, name='front_page')
 ]
 
 

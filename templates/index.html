@@ -116,7 +116,7 @@
         isResizing = false;
     });
 
-    fetch('/api/tag/')
+    fetch('/api/tags/')
     .then(response => response.json())
     .then(data => {
         const tagList = document.getElementById('tagList');
@@ -152,7 +152,7 @@
         console.error('Error fetching tag data:', error);
     });
     
-    fetch('/api/post/image/')
+    fetch('/api/posts/images/')
     .then(response => response.json())
     .then(data => {
         const gallery = document.getElementById('imageGallery');
@@ -241,7 +241,7 @@
                     var b = Math.round(parseInt(values[2]) * factor);
                     return 'rgb(' + r + ',' + g + ',' + b + ')';
                 }
-                imageElement.innerHTML = `<div><a href="${item.image}" target="_blank"><img src="${item.thumbnail_medium}" alt="${item.name}"><p class="image-text">${item.name}</p></a></div>`;
+                imageElement.innerHTML = `<div><a href="post/image/?post_id=${item.id}" target="_blank"><img src="${item.thumbnail_medium}" alt="${item.name}"><p class="image-text">${item.name}</p></a></div>`;
                 gallery.appendChild(imageElement);
             }
         });

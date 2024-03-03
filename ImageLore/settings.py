@@ -34,9 +34,51 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
+ALLOWED_HOSTS = [
+    "frontend",
+    "localhost",
+    "127.0.0.1",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1",
+    "http://localhost",
+    "http://nginx:80",
+    "http://nginx"
+]
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1",
+    "http://localhost",
+    "http://nginx:80",
+    "http://nginx"
+]
+INTERNAL_IPS = [
+    "127.0.0.1"
+]
+CSRF_COOKIE_HTTPONLY = False
+SESSION_COOKIE_HTTPONLY = False
+SESSION_COOKIE_SECURE = False
+
+# CORS_ALLOW_HEADERS = [
+#     'xsrfheadername',
+#     'xsrfcookiename',
+#     'content-type',
+#     'x-csrftoken',
+#     'X-CSRFTOKEN',
+# ]
+
+CORS_ALLOW_CREDENTIALS = True
+
+
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +92,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -89,6 +132,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,  # 每页显示的对象数量
 }
 
 

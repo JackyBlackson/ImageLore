@@ -65,10 +65,12 @@ class ImagePostSerializer(serializers.ModelSerializer):
 
         return instance
 
+
 class ImagePostAllSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImagePost
         fields = '__all__'
+
 
 class TagPostRelationSerializer(serializers.ModelSerializer):
     class Meta:
