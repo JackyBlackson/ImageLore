@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import ImageLore.site_config as site_config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,8 +28,6 @@ DEBUG = True
 
 USE_DJANGO_STATIC_FILE_SERVICE = True
 
-ALLOWED_HOSTS = []
-
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -38,8 +37,13 @@ ALLOWED_HOSTS = [
     "frontend",
     "localhost",
     "127.0.0.1",
+    "r7qbur.natappfree.cc",
+    'jacky-blackon.natapp1.cc',
+    site_config.SITE_HOST
 ]
+
 CSRF_TRUSTED_ORIGINS = [
+    'http://jacky-front.natapp1.cc',
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://127.0.0.1",
@@ -49,6 +53,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 # CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
+    'http://jacky-front.natapp1.cc',
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://127.0.0.1",
@@ -63,13 +68,13 @@ CSRF_COOKIE_HTTPONLY = False
 SESSION_COOKIE_HTTPONLY = False
 SESSION_COOKIE_SECURE = False
 
-# CORS_ALLOW_HEADERS = [
-#     'xsrfheadername',
-#     'xsrfcookiename',
-#     'content-type',
-#     'x-csrftoken',
-#     'X-CSRFTOKEN',
-# ]
+CORS_ALLOW_HEADERS = [
+    'xsrfheadername',
+    'xsrfcookiename',
+    'content-type',
+    'x-csrftoken',
+    'X-CSRFTOKEN',
+]
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -116,6 +121,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'ImageLoreFrontEnd.context_processors.custom_context'
             ],
         },
     },

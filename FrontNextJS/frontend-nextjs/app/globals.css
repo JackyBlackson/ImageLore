@@ -1,0 +1,94 @@
+i {
+  position: relative;
+  margin-right: 3px;
+  margin-left: 3px;
+}
+
+.il-round-border {
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: indigo;
+  border-style: solid;
+  padding-bottom: 20px;
+}
+
+.il-item {
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: indigo;
+  border-style: solid;
+  padding: 10px;
+  margin: 10px auto 10px auto ;
+  height: 100%;
+}
+
+.tree_item {
+  padding: 10px;
+  color: white;
+  text-align: center;
+  margin: 10px;
+  background-blend-mode: soft-light;
+}
+
+.il-body-container {
+  border-color: indigo;
+  border-style: solid;
+}
+
+.box-shadow {
+  box-shadow: 0px 0px 40px 0px rgba(0,0,0,0.33);
+}
+
+.color_area {
+  border-radius: 10px;
+  color: white;
+  padding: 5px;
+}
+
+.sidebar_card {
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border-color: indigo;
+  border-width: 2px;
+}
+
+.post_list {
+  border-radius: 15px;
+  border-width: 4px;
+  border-color: indigo;
+  border-style: solid;
+  padding: 2px;
+  margin: auto;
+  /*max-height: 120VH;*/
+  width: 100%;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+}
+
+.post_list:hover {
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.4);
+  border-radius: 15px;
+}
+
+/* 全局居中样式 */
+.centered-container {
+  margin: 0 auto; /* 使元素居中 */
+  max-width: 2048px; /* 设置最大宽度为 2048 */
+  width: 100%; /* 默认宽度为 100% */
+}
+
+.centered-header {
+  margin-left: 28px;
+  margin-right: auto;
+  max-width: 1992px; /* 设置最大宽度为 2048 - 2 * 28 */
+}
+
+#navigator{
+  margin: 20px 40px;
+  border-radius: 10px;
+  border-width: 2px;
+  padding: 5px;
+  border-color: indigo;
+  border-style: solid;
+  outline-width:28px;
+  outline-color: white;
+}

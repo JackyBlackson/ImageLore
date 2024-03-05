@@ -59,6 +59,7 @@ class TagViewSet(viewsets.ModelViewSet):
                         "title": tag.name,
                         'value': tag.id,
                         'key': tag.id,
+                        'color': tag.color,
                     })
                 return Response(response)
 
@@ -79,12 +80,16 @@ class TagViewSet(viewsets.ModelViewSet):
                         "title": tag.name,
                         'value': tag.id,
                         'key': tag.id,
+                        'color': tag.color,
                     })
                 return Response(response)
 
         except ImagePost.DoesNotExist:
             raise Http404("Tag not found")
 
+    @action(detail=False, methods=['get'], url_path='update-count')
+    def update_count(self, request, pk=None):
+        Tag.update_count()
 
 class TagRelationViewSet(viewsets.ModelViewSet):
     queryset = TagRelation.objects.all()
@@ -104,7 +109,7 @@ class ImagePostView(viewsets.ModelViewSet):
     permission_classes = [CustomPermission]
 
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
+        queryset = self.filter_queryset(self.get_queryset().order_by('-id'))
 
         # 使用DRF的分页
         page = self.paginate_queryset(queryset)
@@ -167,6 +172,46 @@ class FolderView(viewsets.ModelViewSet):
     queryset = Folder.objects.all()
     serializer_class = FolderSerializer
     permission_classes = [CustomPermission]
+
+    @action(detail=False, methods=['get'], url_path='roots')
+    def get_root(self, request, pk=None):
+        try:
+            children = Folder.objects.filter(father=None)
+            response = []
+            if len(children) == 0:
+                return Response(response)
+            else:
+                for folder in children:
+                    response.append({
+                        "title": folder.name,
+                        'value': folder.id,
+                        'key': folder.id,
+                        'color': folder.color,
+                    })
+                return Response(response)
+
+        except ImagePost.DoesNotExist:
+            raise Http404("Tag not found")
+
+    @action(detail=True, methods=['get'], url_path='children')
+    def get_child(self, request, pk=None):
+        try:
+            instance = self.get_object()
+            children = Folder.objects.filter(father=instance)
+            response = []
+            if len(children) == 0:
+                return Response(response)
+            else:
+                for folder in children:
+                    response.append({
+                        "title": folder.name,
+                        'value': folder.id,
+                        'key': folder.id,
+                        'color': folder.color,
+                    })
+                return Response(response)
+        except ImagePost.DoesNotExist:
+            raise Http404("ImagePost not found")
 
 
 class FolderAliasView(viewsets.ModelViewSet):

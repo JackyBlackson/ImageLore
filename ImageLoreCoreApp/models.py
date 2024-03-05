@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 
 
 # 标签类
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
@@ -27,9 +29,81 @@ class Tag(models.Model):
     type = models.IntegerField(choices=TYPE_CHOICES, default=BOTH)
     color = models.CharField(max_length=8, default="#000000")
     father = models.ForeignKey('self', related_name='tagtree', null=True, blank=True, on_delete=models.CASCADE)
+    count = models.IntegerField(default=0)
+
+    prefix = "%20%20"
+
+    @staticmethod
+    def update_count():
+        # 获取所有根节点tags
+        root_tags = Tag.objects.filter(father__isnull=True)
+
+        for root_tag in root_tags:
+            # 更新每个根节点下的tags的count
+            Tag._update_tag_count_recursive(root_tag)
+
+    @staticmethod
+    def _update_tag_count_recursive(tag):
+        # 获取当前tag直接标记的图片
+        direct_images = set(tag.tag_post_relations_tag.values_list('post', flat=True))
+
+        # 获取子tags
+        child_tags = tag.tagtree.all()
+        all_images = direct_images.copy()
+
+        for child_tag in child_tags:
+            # 递归获取子tag的所有图片（包括其子tag标记的图片）
+            child_images = Tag._update_tag_count_recursive(child_tag)
+            # 合并图片集合，排除重复项
+            all_images |= child_images
+
+        # 更新当前tag的count
+        tag.count = len(all_images)
+        tag.save()
+
+        return all_images
 
     def __str__(self):
         return f"[{self.id}]{self.name}"
+
+
+PREFIX = f"%20%20"
+
+def __get_sub_tree(tag, layer=0) -> []:
+    child = Tag.objects.filter(father=tag)
+    folder_count = TagFolderRelation.objects.filter(tag=tag)
+    print(f'[{tag.name}]folder_count: ', folder_count)
+    image_count = TagPostRelation.objects.filter(tag=tag)
+    print(f'[{tag.name}]folder_count: ', image_count)
+    child_response = []
+    for tagChild in child:
+        sub_response = __get_sub_tree(tagChild, layer + 1)
+        child_response.append(sub_response)
+    if len(child) == 0:
+        return {
+            'tag': tag,
+            'depth': layer,
+            'folder_count': folder_count.count(),
+            'image_count': image_count.count(),
+        }
+    else:
+        return {
+            'tag': tag,
+            'depth': layer,
+            'folder_count': folder_count.count(),
+            'image_count': image_count.count(),
+            'children': child_response
+        }
+
+
+def get_whole_tree() -> []:
+    queryset = Tag.objects.filter(father=None)
+    response = []
+    layer = 0
+    for tag in queryset:
+        response.append(__get_sub_tree(tag, layer + 1))
+    print(response)
+    return response
 
 
 class TagRelation(models.Model):
@@ -67,6 +141,9 @@ class Folder(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     color = models.CharField(max_length=8, default="#000000")
     father = models.ForeignKey('self', related_name='folders', null=True, blank=True, on_delete=models.CASCADE)
+    count = models.IntegerField(default=0)
+
+
 
     def __str__(self):
         return self.name
@@ -83,6 +160,7 @@ class FolderAlias(models.Model):
     def __str__(self):
         return f"[{self.folder.id}]{self.folder.name} <-- [{self.id}]{self.alias}"
 
+
 class TagFolderRelation(models.Model):
     tag = models.ForeignKey(Tag, related_name='tag_folder_relations_tag', on_delete=models.CASCADE)
     folder = models.ForeignKey(Folder, related_name='tag_folder_relations_folder', on_delete=models.CASCADE)
@@ -92,6 +170,7 @@ class TagFolderRelation(models.Model):
 
     def __str__(self):
         return f"[{self.folder.id}]{self.folder.name} <-- [{self.tag.id}]{self.tag.name}"
+
 
 class ImagePost(models.Model):
     name = models.CharField(max_length=255)

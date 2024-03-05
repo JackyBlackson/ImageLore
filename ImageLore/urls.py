@@ -33,9 +33,9 @@ router = DefaultRouter()
 router.register(r'tags', TagViewSet)
 router.register(r'aliases/tags', TagAliasViewSet)
 
-# router.register(r'tags/relations/tag', TagRelationViewSet)
-# router.register(r'tags/relations/post', TagPostRelationViewSet)
-# router.register(r'tags/relations/folder', TagFolderRelationViewSet)
+router.register(r'tags/relations/tag', TagRelationViewSet)
+router.register(r'tags/relations/post', TagPostRelationViewSet)
+router.register(r'tags/relations/folder', TagFolderRelationViewSet)
 
 router.register(r'folders', FolderView)
 router.register(r'aliases/folders', FolderAliasView)

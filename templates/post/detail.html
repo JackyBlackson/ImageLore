@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Post {{ image.id }} Details
+{% endblock %}
+
+{% block sidebar %}
+  <div class="alert alert-info" style="border-radius: 10px">
+    <i class="bi bi-lightbulb" style="position: relative;"></i>
+    <strong>这有一些帮助。</strong>
+    在左侧我们展示了大尺寸的图片，你可以点击来查看完整图片。下方我们还会完整展示图片的详细信息和标签。你可以点击他们来到对应的页面。
+  </div>
+  <div class="card pr-2 sidebar_card">
+    <h5 class="card-header text-white p-3" style="background-color: indigo;">
+      <i class="bi bi-info-circle" style="position: relative;"></i>
+      图片信息
+    </h5>
+    <div class="card-body" style="padding-right: 10px">
+      <div class="table-responsive-sm">
+        <table class="table table-hover text-center">
+          <tbody>
+            <tr>
+              <td class="text-nowrap font-weight-bold">图片序号</td>
+              <td>
+                <div>
+                  <code>post.id=</code>
+                  <kbd>{{ image.id }}</kbd>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap font-weight-bold">上传用户</td>
+              <td>
+                <div>{{ image.uploader }}</div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap font-weight-bold">图片名称</td>
+              <td>
+                <div>{{ image.name }}</div>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="text-nowrap font-weight-bold">图片描述</td>
+              <td>
+                <div>{{ image.description }}</div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap font-weight-bold">所属文件夹</td>
+              <td>
+                <div class="color_area" style="background-color: {{ image.folder.color }}">{{ image.folder }}</div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap font-weight-bold">颜色标记</td>
+              <td>
+                <div class="color_area" style="background-color: {{ image.color }}">{{ image.color|lower }}</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-around flex-wrap align-self-center image-container">
+    <div class="align-self-center">
+      <a href="{{ root_url }}/{{ image.image.url }}">
+          <img id="image" class="post_list" src="{{ root_url }}/{{ image.image.url }}" alt="正在加载图片。。。" style="border-color: {{ image.color }}" />
+      </a>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+<!-- partials/tree_nodes.html -->
+
+<li class="color_area tree_item" style="background-color: {{ node.tag.color }}; padding:5px;margin: 5px">
+    <div class="d-flex justify-content-between align-items-start" >
+        <div>
+            <i class="bi bi-tag-fill" style="position: relative;"></i>
+            {{ node.tag.name }}
+        </div>
+        <div>
+          <span class="text-info rounded-pill bg-white badge ">
+              <i class="bi bi-image" style="position: relative;"></i>
+              {{ node.image_count }}
+          </span>
+          <span class="text-success rounded-pill bg-white badge ">
+              <i class="bi bi-folder" style="position: relative;"></i>
+              {{ node.folder_count }}
+          </span>
+        </div>
+    </div>
+  {% if node.children %}
+    <ul class="">
+      {% for child in node.children %}
+        {% with node=child %}
+          {% include template_name %}
+        {% endwith %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+</li>
