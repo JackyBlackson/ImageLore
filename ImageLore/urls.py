@@ -27,8 +27,8 @@ from django.conf.urls.static import static
 from ImageLoreFrontEnd.views import *
 
 router = DefaultRouter()
-# router.register(r'users', UserViewSet)
-# router.register(r'permissions', PermissionViewSet)
+router.register(r'users', UserViewSet)
+router.register(r'permissions', PermissionViewSet)
 
 router.register(r'tags', TagViewSet)
 router.register(r'aliases/tags', TagAliasViewSet)

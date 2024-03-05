@@ -6,6 +6,11 @@ from datetime import datetime
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
+
+
+
 
 
 # 标签类
@@ -40,26 +45,25 @@ class Tag(models.Model):
 
         for root_tag in root_tags:
             # 更新每个根节点下的tags的count
-            Tag._update_tag_count_recursive(root_tag)
+            root_tag.update_tag_count_recursive()
 
-    @staticmethod
-    def _update_tag_count_recursive(tag):
+    def update_tag_count_recursive(self):
         # 获取当前tag直接标记的图片
-        direct_images = set(tag.tag_post_relations_tag.values_list('post', flat=True))
+        direct_images = set(self.tag_post_relations_tag.values_list('post', flat=True))
 
         # 获取子tags
-        child_tags = tag.tagtree.all()
+        child_tags = self.tagtree.all()
         all_images = direct_images.copy()
 
         for child_tag in child_tags:
             # 递归获取子tag的所有图片（包括其子tag标记的图片）
-            child_images = Tag._update_tag_count_recursive(child_tag)
+            child_images = child_tag.update_tag_count_recursive()
             # 合并图片集合，排除重复项
             all_images |= child_images
 
         # 更新当前tag的count
-        tag.count = len(all_images)
-        tag.save()
+        self.count = len(all_images)
+        self.save()
 
         return all_images
 
@@ -68,6 +72,7 @@ class Tag(models.Model):
 
 
 PREFIX = f"%20%20"
+
 
 def __get_sub_tree(tag, layer=0) -> []:
     child = Tag.objects.filter(father=tag)
@@ -143,8 +148,6 @@ class Folder(models.Model):
     father = models.ForeignKey('self', related_name='folders', null=True, blank=True, on_delete=models.CASCADE)
     count = models.IntegerField(default=0)
 
-
-
     def __str__(self):
         return self.name
 
@@ -196,3 +199,10 @@ class TagPostRelation(models.Model):
 
     def __str__(self):
         return f"[{self.post.id}]{self.post.name} <-- [{self.tag.id}]{self.tag.name}"
+
+
+@receiver(post_save, sender=TagPostRelation)
+@receiver(post_delete, sender=TagPostRelation)
+def update_tag_count(sender, instance, **kwargs):
+    tag = instance.tag
+    Tag.update_count()

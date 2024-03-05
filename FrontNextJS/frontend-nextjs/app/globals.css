@@ -42,7 +42,7 @@ i {
 .color_area {
   border-radius: 10px;
   color: white;
-  padding: 5px;
+  padding: 5px 8px 5px 5px;
 }
 
 .sidebar_card {
@@ -91,4 +91,11 @@ i {
   border-style: solid;
   outline-width:28px;
   outline-color: white;
+}
+
+#tree_CountMarker {
+  margin-left: 5px;
+  border-radius: 5px;
+  border-color: white;
+  border-width: 2px;
 }

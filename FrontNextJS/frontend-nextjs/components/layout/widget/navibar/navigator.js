@@ -7,31 +7,38 @@ export default function Navigator({ title='iMageLore', items={} }) {
   const navi_item = [
     {
       href: "/",
-      text: '上传文件'
+      text: '上传文件',
+      icon: 'cloud-upload',
     },
     {
       href: "/posts/",
-      text: '图片库'
+      text: '图片库',
+      icon: 'images',
     },
     {
       href: "/tags/",
-      text: '标签'
+      text: '标签',
+      icon: 'tags',
     },
     {
       href: "/folders/",
-      text: '文件夹'
+      text: '文件夹',
+      icon: 'folder2-open',
     },
     {
       href: "/search/",
-      text: '搜索'
+      text: '搜索',
+      icon: 'search',
     },
     {
       href: "/admin/",
-      text: '站点管理'
+      text: '站点管理',
+      icon: 'toggles',
     },
     {
       href: "/",
-      text: '账户'
+      text: '账户',
+      icon: 'person-lock',
     },
   ]
   return (

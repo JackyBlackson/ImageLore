@@ -7,7 +7,7 @@ export default function Card({
 }) {
     return (
         <div className="card pr-2 sidebar_card" style={{borderRadius: '10px'}}>
-            <h5 className="card-header text-white p-3" style={{"background-color": "indigo"}}>
+            <h5 className="card-header text-white p-3" style={{"background-color": "indigo", borderRadius: '10px'}}>
                 {icon}
                 <span>{title}</span>
             </h5>

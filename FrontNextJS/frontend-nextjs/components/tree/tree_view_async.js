@@ -49,6 +49,8 @@ const TreeViewAsync = ({
               key: node.key.toString(),
               icon: icon,
               color: node.color,
+              count: node.count,
+              isLeaf: node.isLeaf,
             }))),
           );
           console.log('fetched node data: ', data)
@@ -66,6 +68,7 @@ const TreeViewAsync = ({
       icon={icon}
       key={nodeData.key}
       color={nodeData.color}
+      count={nodeData.count}
     />
   })
 
@@ -77,7 +80,9 @@ const TreeViewAsync = ({
           title: node.title,
           key: node.key.toString(),
           icon: icon,
-          color: node.color
+          color: node.color,
+          count: node.count,
+          isLeaf: node.isLeaf,
         })));
         console.log('fetched root data ', data)
       })

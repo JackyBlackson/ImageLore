@@ -6,13 +6,13 @@ const BodySidebarLayout = ({ body, sidebar }) => {
       <div id="basic-container" className="container-fluid">
         <div id="body-container" className="row m-3 il-round-border" style={{'height':'100%'}}>
 
-          <div id="content-container" className="col-xl-8">
+          <div id="content-container" className="col-xl-9">
             <div id="content" className="il-item">
               {body}
             </div>
           </div>
 
-          <div id="sidebar-container" className="col-xl-4">
+          <div id="sidebar-container" className="col-xl-3">
             <div id="sidebar-test" className="il-item">
               {sidebar}
             </div>

@@ -5,14 +5,19 @@ import BodySidebarLayout from "@/components/layout/body_sidebar_layout";
 import Sidebar from "@/components/sidebar/siddebar";
 import TagTreeCard from "@/components/sidebar/widget/tree_card";
 import DefaultSidebar from "@/components/sidebar/default_sidebar";
+import Home from "../page";
+import RootLayout from "../layout";
+import { site_title } from "../config/global";
 
-export default function Home() {
+export const metadata = {
+  title: `图片库 - ${site_title}`,
+  description: '使用文件夹与标签的图片库网站',
+}
+
+export default function PostPage() {
   return (
-    <main>
-      <BodySidebarLayout
-        body={<ImageGallery />}
-        sidebar={<DefaultSidebar />}
-      />
-    </main>
-  )
+
+    <ImageGallery />
+
+    )
 }

@@ -55,11 +55,14 @@ class TagViewSet(viewsets.ModelViewSet):
                 return Response(response)
             else:
                 for tag in children:
+                    is_leaf = Tag.objects.filter(father=tag).count() == 0
                     response.append({
                         "title": tag.name,
                         'value': tag.id,
                         'key': tag.id,
                         'color': tag.color,
+                        'count': tag.count,
+                        'isLeaf': is_leaf,
                     })
                 return Response(response)
 
@@ -76,11 +79,14 @@ class TagViewSet(viewsets.ModelViewSet):
                 return Response(response)
             else:
                 for tag in children:
+                    is_leaf = Tag.objects.filter(father=tag).count() == 0
                     response.append({
                         "title": tag.name,
                         'value': tag.id,
                         'key': tag.id,
                         'color': tag.color,
+                        'count': tag.count,
+                        'isLeaf': is_leaf,
                     })
                 return Response(response)
 
@@ -90,6 +96,8 @@ class TagViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'], url_path='update-count')
     def update_count(self, request, pk=None):
         Tag.update_count()
+        return Response({'message': 'success'})
+
 
 class TagRelationViewSet(viewsets.ModelViewSet):
     queryset = TagRelation.objects.all()
@@ -120,6 +128,7 @@ class ImagePostView(viewsets.ModelViewSet):
             # 在这里可以对每个对象的数据进行处理，添加缩略图地址等信息
             for item in data:
                 instance = ImagePost.objects.get(id=item['id'])
+                item['image'] = instance.image.url
                 item['thumbnail_small'] = instance.thumbnail_small.url if instance.thumbnail_small else None
                 item['thumbnail_medium'] = instance.thumbnail_medium.url if instance.thumbnail_medium else None
 
@@ -135,6 +144,7 @@ class ImagePostView(viewsets.ModelViewSet):
         data = serializer.data
 
         # 为单个对象添加缩略图信息
+        data['id'] = instance.id
         data['thumbnail_small'] = instance.thumbnail_small.url if instance.thumbnail_small else None
         data['thumbnail_medium'] = instance.thumbnail_medium.url if instance.thumbnail_medium else None
 
@@ -160,8 +170,10 @@ class ImagePostView(viewsets.ModelViewSet):
             response = []
             for tag in tag_set:
                 response.append({
-                    'id' : tag.id,
-                    'name' : tag.name
+                    'id': tag.tag.id,
+                    'name': tag.tag.name,
+                    'color': tag.tag.color,
+                    'count': tag.tag.count,
                 })
             return Response(response)
         except ImagePost.DoesNotExist:
@@ -182,11 +194,13 @@ class FolderView(viewsets.ModelViewSet):
                 return Response(response)
             else:
                 for folder in children:
+                    is_leaf = Folder.objects.filter(father=folder).count() == 0
                     response.append({
                         "title": folder.name,
                         'value': folder.id,
                         'key': folder.id,
                         'color': folder.color,
+                        'isLeaf': is_leaf,
                     })
                 return Response(response)
 
@@ -203,11 +217,13 @@ class FolderView(viewsets.ModelViewSet):
                 return Response(response)
             else:
                 for folder in children:
+                    is_leaf = Folder.objects.filter(father=folder).count() == 0
                     response.append({
                         "title": folder.name,
                         'value': folder.id,
                         'key': folder.id,
                         'color': folder.color,
+                        'isLeaf': is_leaf,
                     })
                 return Response(response)
         except ImagePost.DoesNotExist:

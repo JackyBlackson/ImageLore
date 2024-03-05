@@ -24,25 +24,26 @@ export default function DetailBigImage({ itemUrl }) {
     };
 
     useEffect(() => {
-        const fetchImages = async () => {
-            try {
-                const response = await fetch(itemUrl);
-                const data = await response.json();
-                setImage(data.image)
-                setColor(data.color)
-                setReady(true)
-            } catch (error) {
-                console.error('Error fetching images:', error);
-            }
-        };
+        if (!ready) {
+            const fetchImages = async () => {
+                try {
+                    const response = await fetch(itemUrl);
+                    const data = await response.json();
+                    setImage(data.image)
+                    setColor(data.color)
+                    setReady(true)
+                } catch (error) {
+                    console.error('Error fetching images:', error);
+                }
+            };
 
 
-
-        fetchImages();
+            fetchImages();
+        }
     });
     return (
-        <div class='container-fluid text-center'>
-            <div class="container">
+        <div className='container-fluid text-center'>
+            <div className="container">
                 <span>
                     <Slider
                         defaultValue={100}
@@ -52,8 +53,8 @@ export default function DetailBigImage({ itemUrl }) {
                         min={5}
                     /></span>
             </div>
-            <div class="align-self-center">
-                <div class="d-flex justify-content-around flex-wrap align-self-center image-container">
+            <div className="align-self-center">
+                <div className="d-flex justify-content-around flex-wrap align-self-center image-container">
 
 
                     <div>
@@ -61,7 +62,7 @@ export default function DetailBigImage({ itemUrl }) {
                             ready ?
                                 <Link href={image}>
                                     <img id="image"
-                                        class="post_list"
+                                        className="post_list"
                                         src={image}
                                         alt="正在加载图片。。。"
                                         style={{ "border-color": color, width: `${maxHeight}%` }} />

@@ -6,14 +6,21 @@ export default function TreeNode({
     icon = <BiIcon bicode="node-plus" />,
     href = '#',
     key = 0,
-    title = 'This is a NODE!'
+    title = 'This is a NODE!',
+    count = 0
 }) {
     return (
 
-        <Link href={href} style={{textDecoration: 'none'}}>
-            <div className='color_area' style={{ 'background-color': color}}>
-                {icon}
-                {title}
+        <Link href={href} style={{textDecoration: 'none'}} >
+            <div className='color_area' style={{ textDecoration: 'none',  'background-color': color  }}>
+                <span>
+                    {icon}
+                    {title}
+                </span>
+                <span id='tree_CountMarker' className=''>
+                    {/* <BiIcon bicode="bookmark-fill" /> */}
+                    {count}
+                </span>
             </div>
         </Link >
 
