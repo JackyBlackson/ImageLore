@@ -7,11 +7,11 @@ export default function Card({
 }) {
     return (
         <div className="card pr-2 sidebar_card" style={{borderRadius: '10px'}}>
-            <h5 className="card-header text-white p-3" style={{"background-color": "indigo", borderRadius: '10px'}}>
+            <h5 className="card-header text-white p-3" style={{backgroundColor: "indigo", borderRadius: '10px'}}>
                 {icon}
                 <span>{title}</span>
             </h5>
-            <div className="card-body" style={{"padding-right": "10px"}}>
+            <div className="card-body" style={{paddingRight: "10px"}}>
                 {content}
             </div>
         </div>

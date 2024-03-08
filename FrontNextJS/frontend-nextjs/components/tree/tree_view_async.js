@@ -66,9 +66,10 @@ const TreeViewAsync = ({
     return <TreeNode
       title={nodeData.title}
       icon={icon}
-      key={nodeData.key}
+      id={nodeData.key}
       color={nodeData.color}
       count={nodeData.count}
+      href={`/tags/${nodeData.key}`}
     />
   })
 

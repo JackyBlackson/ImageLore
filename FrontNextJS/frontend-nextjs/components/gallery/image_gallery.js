@@ -5,7 +5,7 @@ import AlertStatic from '../util/alert_static';
 import GalleryImageItem from './widget/gallery_image_item';
 import { backend_root } from '@/app/config/global';
 
-const ImageGallery = () => {
+const ImageGallery = ( {apiUrl='api/posts/images', searchParam=''} ) => {
   const [images, setImages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -13,7 +13,8 @@ const ImageGallery = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch(`${backend_root}/api/posts/images/?page=${currentPage}`);
+        console.log('request at: ', `${backend_root}/${apiUrl}?${searchParam}&page=${currentPage}`)
+        const response = await fetch(`${backend_root}/${apiUrl}?${searchParam}&page=${currentPage}`);
         const data = await response.json();
         setImages(data.results);
         setTotalPages(data.count);
@@ -33,7 +34,7 @@ const ImageGallery = () => {
   };
 
   return (
-    <div>
+    <>
       <div className="d-flex justify-content-around flex-wrap align-self-center">
         {images.map((image) => (
           <GalleryImageItem
@@ -55,7 +56,7 @@ const ImageGallery = () => {
       <div className="d-flex justify-content-center p-3">
           <Pagination current={currentPage} total={totalPages} onChange={handlePageChange} style={{ textAlign: 'center' }}  />
       </div>
-    </div>
+    </>
   );
 };
 

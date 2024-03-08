@@ -10,9 +10,6 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 
-
-
-
 # 标签类
 
 
@@ -35,8 +32,16 @@ class Tag(models.Model):
     color = models.CharField(max_length=8, default="#000000")
     father = models.ForeignKey('self', related_name='tagtree', null=True, blank=True, on_delete=models.CASCADE)
     count = models.IntegerField(default=0)
+    contribute = models.IntegerField(default=0)
 
-    prefix = "%20%20"
+    def to_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'color': self.color,
+            'count': self.count,
+            'contribute': self.contribute,
+        }
 
     @staticmethod
     def update_count():
@@ -57,14 +62,15 @@ class Tag(models.Model):
 
         for child_tag in child_tags:
             # 递归获取子tag的所有图片（包括其子tag标记的图片）
-            child_images = child_tag.update_tag_count_recursive()
+            all_images |= child_tag.update_tag_count_recursive()
             # 合并图片集合，排除重复项
-            all_images |= child_images
-
+        trimmed_count = len(all_images)
+        contribute_count = len(direct_images)
         # 更新当前tag的count
-        self.count = len(all_images)
+        self.count = trimmed_count
+        self.contribute = contribute_count
         self.save()
-
+        # print(all_images)
         return all_images
 
     def __str__(self):
@@ -147,6 +153,36 @@ class Folder(models.Model):
     color = models.CharField(max_length=8, default="#000000")
     father = models.ForeignKey('self', related_name='folders', null=True, blank=True, on_delete=models.CASCADE)
     count = models.IntegerField(default=0)
+
+    @staticmethod
+    def update_count():
+        # 获取所有根节点tags
+        root_tags = Folder.objects.filter(father__isnull=True)
+
+        for root_tag in root_tags:
+            # 更新每个根节点下的tags的count
+            root_tag.update_folder_count_recursive()
+
+    def update_folder_count_recursive(self):
+        # 获取当前tag直接标记的图片
+        direct_images = set(ImagePost.objects.filter(folder=self).values_list('id', flat=True))
+
+        # 获取子tags
+        child_tags = Folder.objects.filter(father=self)
+        all_images = direct_images.copy()
+
+        for child_tag in child_tags:
+            # 递归获取子tag的所有图片（包括其子tag标记的图片）
+            all_images |= child_tag.update_folder_count_recursive()
+            # 合并图片集合，排除重复项
+        trimmed_count = len(all_images)
+        contribute_count = len(direct_images)
+        # 更新当前tag的count
+        self.count = trimmed_count
+        self.contribute = contribute_count
+        self.save()
+        # print(all_images)
+        return all_images
 
     def __str__(self):
         return self.name

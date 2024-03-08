@@ -60,12 +60,13 @@ export default function RootLayout({ children, side }) {
         <link href="https://cdn.staticfile.net/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
         <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.3/js/bootstrap.min.js"></script>
         <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+        
       </head>
       <body className={inter.className}>
         <header>
           <Navigator />
         </header>
-        <main style={{marginTop: '100px'}}>
+        <main style={{ marginTop: '100px' }}>
           <div id="basic-container" className="container-fluid">
             <div id="body-container" className="row m-3 il-round-border" style={{ 'height': '100%' }}>
 
@@ -92,7 +93,7 @@ export default function RootLayout({ children, side }) {
           <div id="footer-container" className="container-fluid">
             <div id="footer" className="container-fluid">
               <div id="copyright" className="d-flex justify-content-center">
-                <p >Copyright © 2023-2024 {site_title}. Powered by Jacky_Blackson. All rights reserved.</p>
+                <p >Copyright © 2023-2024 {site_title}. Made with ❤ by Jacky_Blackson. All rights reserved.</p>
               </div>
             </div>
           </div>

@@ -25,6 +25,10 @@ from ImageLoreCoreApp.views import *
 from django.conf.urls.static import static
 
 from ImageLoreFrontEnd.views import *
+from ImageLoreCoreApp.views.image_view import *
+from ImageLoreCoreApp.views.tag_view import *
+from ImageLoreCoreApp.views.folder_view import *
+from ImageLoreCoreApp.default_views import *
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)

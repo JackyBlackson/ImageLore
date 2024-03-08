@@ -4,6 +4,11 @@ i {
   margin-left: 3px;
 }
 
+.mermaid_div {
+  height: 100%;
+  width: 100%;
+}
+
 .il-round-border {
   border-radius: 10px;
   border-width: 2px;
@@ -93,9 +98,10 @@ i {
   outline-color: white;
 }
 
-#tree_CountMarker {
+.tree_CountMarker {
   margin-left: 5px;
   border-radius: 5px;
   border-color: white;
   border-width: 2px;
 }
+

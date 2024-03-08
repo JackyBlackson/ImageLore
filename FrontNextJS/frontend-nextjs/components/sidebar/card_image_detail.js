@@ -125,7 +125,7 @@ export default function CardImageDetail({ imageId = 12 }) {
                 <td className="text-nowrap font-weight-bold">图片序号</td>
                 <td className='text-break'>
                     <div>
-                        <code>post.id=</code>
+                        <code>post.id = </code>
                         <kbd>{image.id}</kbd>
                     </div>
                 </td>

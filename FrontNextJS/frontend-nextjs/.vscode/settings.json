@@ -1,0 +1,8 @@
+{
+    "editor.tabSize": 2,
+    "workbench.colorTheme": "Default Dark Modern",
+    "workbench.iconTheme": "vs-seti",
+    "workbench.tree.indent": 12,
+    "breadcrumbs.symbolPath": "on",
+    "workbench.editor.navigationScope": "default"
+}
