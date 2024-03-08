@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Statistic">
+    <option name="excludedDirectories">
+      <list>
+        <option value="$PROJECT_DIR$/FrontNextJS/frontend" />
+        <option value="$PROJECT_DIR$/FrontNextJS/frontend-nextjs/node_modules" />
+        <option value="$PROJECT_DIR$/FrontNextJS/frontend-nextjs/.vscode" />
+        <option value="$PROJECT_DIR$/FrontNextJS/frontend-nextjs/.next" />
+      </list>
+    </option>
+  </component>
+</project>

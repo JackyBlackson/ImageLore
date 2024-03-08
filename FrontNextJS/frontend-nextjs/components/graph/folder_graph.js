@@ -6,62 +6,40 @@ import GraphView from './graph_view';
 import AlertStatic from '../util/alert_static';
 import {flowchartClickCallback} from './tag_flow_chart_callback'
 
-export default function TagGraph({ apiUrl = 'api/tags/relations' }) {
+export default function FolderGraph({ apiUrl = 'api/folders/relations' }) {
   const [ready, setReady] = useState(false)
   const [relations, setRelations] = useState({})
   const [graphContent, setGraphContent] = useState(null)
 
   useEffect(() => {
     /*
-    {
-      "tag_list": [
-        {
-            "id": 1,
-            "name": "明清官式建筑",
-            "color": "#000000",
-            "count": 4
-        },
-    ],
-      "primary": [
+      [
           {
-              "father": {
-                  "id": 1,
-                  "name": "明清官式建筑",
-                  "color": "#000000",
-                  "count": 4
-              },
-              "child": {
-                  "id": 3,
-                  "name": "大式建筑",
-                  "color": "#0035AF",
-                  "count": 2
-              }
-          },
-      ],
-      "secondary": [
-          {
-              "description": "相同",
-              "father": {
-                  "id": 1,
-                  "name": "明清官式建筑",
-                  "color": "#000000",
-                  "count": 4
-              },
-              "child": {
-                  "id": 1,
-                  "name": "明清官式建筑",
-                  "color": "#000000",
-                  "count": 4
-              }
-          },
+              "title": "test_base",
+              "value": 1,
+              "key": 1,
+              "children": [
+                  {
+                      "title": "一级文件夹",
+                      "value": 2,
+                      "key": 2,
+                      "children": [
+                          {
+                              "title": "二级文件夹",
+                              "value": 3,
+                              "key": 3
+                          }
+                      ]
+                  }
+              ]
+          }
       ]
-  }
     */
     const convertGraphContent = (data) => {
       let content = 'graph LR;'
 
-      const tag_list = data.tag_list
-      console.log('tag_list: ', tag_list)
+      const folder_list = data.folder_list
+      console.log('tag_list: ', folder_list)
 
       const primary = data.primary
       console.log('primary: ', primary)
@@ -71,19 +49,19 @@ export default function TagGraph({ apiUrl = 'api/tags/relations' }) {
 
       const strong = data.strong
 
-      for (const item of tag_list) {
+      for (const item of folder_list) {
         content += `    id${item.id}([\"${item.name} (${item.count})\"]);`
       }
-    
+
       for (const item of primary) {
         content += `    id${item.father.id} --> id${item.child.id};`
       }
       for (const item of secondary) {
         content += `    id${item.father.id} -.\"${item.description}\".- id${item.child.id};`
       }
-      for (const item of tag_list) {
+      for (const item of folder_list) {
         content += `    style id${item.id} stroke:${item.color},stroke-width:2px;`
-        content += `    click id${item.id} href \"/tags/${item.id}\" \"点击查看“${item.name}”标签的详情\";`
+        content += `    click id${item.id} href \"/folders/${item.id}\" \"点击查看“${item.name}”标签的详情\";`
         //content += `    click id${item.id} call callback(${item.id});`;
       }
 
@@ -97,7 +75,7 @@ export default function TagGraph({ apiUrl = 'api/tags/relations' }) {
           setRelations(data)
           console.log('relations: ', data)
           convertGraphContent(data)
-          
+
         } catch (error) {
           console.error('Error fetching images:', error);
         }
@@ -107,18 +85,18 @@ export default function TagGraph({ apiUrl = 'api/tags/relations' }) {
     }
   });
 
-  if(graphContent){
+  if (graphContent) {
     console.log(graphContent)
     return (<GraphView
       chart={graphContent}
     />)
   } else {
-    return(
+    return (
       <AlertStatic
         type='info'
         strong='正在加载标签图谱'
         text='请稍后，待数据加载完毕，图谱将会正常显示。'
-        />
+      />
     )
   }
 }

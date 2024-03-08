@@ -11,6 +11,7 @@ const TreeViewAsync = ({
   defaultExpandAll = false,
   rootUrl,
   nodeUrl,
+  targetType='tags',
   icon = <BiIcon bicode='node-plus' />
 }) => {
   const [treeData, setTreeData] = useState([]);
@@ -69,7 +70,7 @@ const TreeViewAsync = ({
       id={nodeData.key}
       color={nodeData.color}
       count={nodeData.count}
-      href={`/tags/${nodeData.key}`}
+      href={`/${targetType}/${nodeData.key}`}
     />
   })
 
@@ -84,6 +85,7 @@ const TreeViewAsync = ({
           color: node.color,
           count: node.count,
           isLeaf: node.isLeaf,
+          type: targetType,
         })));
         console.log('fetched root data ', data)
       })

@@ -154,6 +154,14 @@ class Folder(models.Model):
     father = models.ForeignKey('self', related_name='folders', null=True, blank=True, on_delete=models.CASCADE)
     count = models.IntegerField(default=0)
 
+    def to_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'color': self.color,
+            'count': self.count,
+        }
+
     @staticmethod
     def update_count():
         # 获取所有根节点tags
@@ -242,3 +250,10 @@ class TagPostRelation(models.Model):
 def update_tag_count(sender, instance, **kwargs):
     tag = instance.tag
     Tag.update_count()
+
+
+@receiver(post_save, sender=ImagePost)
+@receiver(post_delete, sender=ImagePost)
+def update_folder_count(sender, instance: ImagePost, **kwargs):
+    folder = instance.folder
+    Folder.update_count()

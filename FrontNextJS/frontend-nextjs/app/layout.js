@@ -34,6 +34,7 @@ export default function RootLayout({ children, side }) {
           rootUrl={folder_rootUrl}
           nodeUrl={folder_nodeUrl}
           icon={<BiIcon bicode="folder" />}
+          targetType='folders'
         />
       </div>
     }
@@ -48,6 +49,7 @@ export default function RootLayout({ children, side }) {
           rootUrl={tag_rootUrl}
           nodeUrl={tag_nodeUrl}
           icon={<BiIcon bicode="tag" />}
+          targetType='tags'
         />
       </div>
     }

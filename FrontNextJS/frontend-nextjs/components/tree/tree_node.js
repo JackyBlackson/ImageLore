@@ -7,7 +7,8 @@ export default function TreeNode({
     href = '#',
     id = 0,
     title = 'This is a NODE!',
-    count = 0
+    count = 0,
+    targetType='tags',
 }) {
     return (
 
@@ -19,7 +20,7 @@ export default function TreeNode({
                 </span>
                 <span id='tree_CountMarker' style={{marginLeft: '5px'}}>
                     {/* <BiIcon bicode="bookmark-fill" /> */}
-                    {count}
+                    ({count})
                 </span>
             </div>
         </Link >
