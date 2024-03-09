@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { site_title } from "@/app/config/global";
+import ImageGallery from "@/components/gallery/image_gallery";
 
 export const metadata = {
   title: `文件夹详情 - ${site_title}`,

@@ -56,7 +56,6 @@ class ImagePostSerializer(serializers.ModelSerializer):
         validated_data['image'] = image
 
         instance = super().create(validated_data)
-
         small_thumbnail = create_thumbnail(self, image, (100, 100))
         medium_thumbnail = create_thumbnail(self, image, (300, 300))
 

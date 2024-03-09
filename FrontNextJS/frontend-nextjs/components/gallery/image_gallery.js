@@ -44,6 +44,8 @@ const ImageGallery = ( {apiUrl='posts/images', searchParam=''} ) => {
             href={`/posts/${image.id}`}
             src={backend_root + image.thumbnail_medium}
             borderColor={image.color}
+            folder={image.folder_name}
+            tagCount={image.tag_count}
           />
         ))}
         {images.length === 0 && (

@@ -14,7 +14,7 @@ from ImageLoreCoreApp.models import TagAlias
 from ImageLoreCoreApp.models import TagRelation
 from ImageLoreCoreApp.models import TagPostRelation
 from ImageLoreCoreApp.serializers import ImagePostSerializer, ImagePostAllSerializer
-
+from ImageLoreCoreApp.views.image_view import image_response
 
 class FolderView(viewsets.ModelViewSet):
     queryset = Folder.objects.all()
@@ -106,17 +106,7 @@ class FolderView(viewsets.ModelViewSet):
             # 使用DRF的分页
             page = (self.paginate_queryset(queryset))
             if page is not None:
-                serializer = ImagePostAllSerializer(page, many=True)
-                data = serializer.data
-
-                # 对每个对象的数据进行处理，添加图片和缩略图地址等信息
-                for item in data:
-                    instance = ImagePost.objects.get(id=item['id'])
-                    item['image'] = instance.image.url
-                    item['thumbnail_small'] = instance.thumbnail_small.url if instance.thumbnail_small else None
-                    item['thumbnail_medium'] = instance.thumbnail_medium.url if instance.thumbnail_medium else None
-
-                return self.get_paginated_response(data)
+                return image_response(self, page)
 
             # 如果没有使用分页，则直接序列化整个查询集
             serializer = ImagePostAllSerializer(queryset, many=True)

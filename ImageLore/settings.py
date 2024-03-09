@@ -94,9 +94,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     "UserAndPermission.apps.UserandpermissionConfig",
     "ImageLoreCoreApp.apps.ImagelorecoreappConfig",
-    "ImageLoreFrontEnd.apps.ImagelorefrontendConfig"
+    "ImageLoreFrontEnd.apps.ImagelorefrontendConfig",
+    'dj_rest_auth',
 ]
 
 MIDDLEWARE = [

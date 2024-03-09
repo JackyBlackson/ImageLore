@@ -51,7 +51,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('api/', include(router.urls)),
     path('posts/<int:id>/', post_detail, name='post_detail'),
-    path('', front_page, name='front_page')
+    path('auth/', include('dj_rest_auth.urls')),
 ]
 
 

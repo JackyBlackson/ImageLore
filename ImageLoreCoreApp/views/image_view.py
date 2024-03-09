@@ -21,6 +21,20 @@ from ImageLoreCoreApp.serializers import ImagePostSerializer, ImagePostAllSerial
 from ImageLoreCoreApp.search.search_service import search
 import traceback
 
+def image_response(self, page):
+    serializer = ImagePostAllSerializer(page, many=True)
+    data = serializer.data
+
+    # 对每个对象的数据进行处理，添加图片和缩略图地址等信息
+    for item in data:
+        instance = ImagePost.objects.get(id=item['id'])
+        item['folder_name'] = instance.folder.name
+        item['tag_count'] = TagPostRelation.objects.filter(post=instance).count()
+        item['image'] = instance.image.url
+        item['thumbnail_small'] = instance.thumbnail_small.url if instance.thumbnail_small else None
+        item['thumbnail_medium'] = instance.thumbnail_medium.url if instance.thumbnail_medium else None
+    print('response: ', self.get_paginated_response(data))
+    return self.get_paginated_response(data)
 
 class ImagePostView(viewsets.ModelViewSet):
     queryset = ImagePost.objects.all()
@@ -41,17 +55,7 @@ class ImagePostView(viewsets.ModelViewSet):
 
             page = self.paginate_queryset(queryset)
             if page is not None:
-                serializer = ImagePostAllSerializer(page, many=True)
-                data = serializer.data
-
-                # 对每个对象的数据进行处理，添加图片和缩略图地址等信息
-                for item in data:
-                    instance = ImagePost.objects.get(id=item['id'])
-                    item['image'] = instance.image.url
-                    item['thumbnail_small'] = instance.thumbnail_small.url if instance.thumbnail_small else None
-                    item['thumbnail_medium'] = instance.thumbnail_medium.url if instance.thumbnail_medium else None
-                print('response: ', self.get_paginated_response(data))
-                return self.get_paginated_response(data)
+                return image_response(self, page)
 
             serializer = ImagePostAllSerializer(queryset, many=True)
 
@@ -66,17 +70,7 @@ class ImagePostView(viewsets.ModelViewSet):
         # 使用DRF的分页
         page = self.paginate_queryset(queryset)
         if page is not None:
-            serializer = ImagePostAllSerializer(page, many=True)
-            data = serializer.data
-
-            # 在这里可以对每个对象的数据进行处理，添加缩略图地址等信息
-            for item in data:
-                instance = ImagePost.objects.get(id=item['id'])
-                item['image'] = instance.image.url
-                item['thumbnail_small'] = instance.thumbnail_small.url if instance.thumbnail_small else None
-                item['thumbnail_medium'] = instance.thumbnail_medium.url if instance.thumbnail_medium else None
-
-            return self.get_paginated_response(data)
+            return image_response(self, page)
 
         # 如果没有使用分页，则直接序列化整个查询集
         serializer = ImagePostAllSerializer(queryset, many=True)
