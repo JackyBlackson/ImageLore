@@ -1,9 +1,7 @@
 import React from 'react';
 import { Flex, Tag } from 'antd';
 import Link from 'next/link';
-import { backend_root } from '@/app/config/global';
 import BiIcon from '@/components/util/bi_icon';
-import AlertStatic from '@/components/util/alert_static';
 
 export default function TagView({
     tags = [{ id: 1, name: '这是标签', color: '#fe78ad', count: 114 }]

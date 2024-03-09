@@ -5,7 +5,7 @@ import { Tree } from 'antd';
 const { DirectoryTree } = Tree;
 import BiIcon from '../util/bi_icon';
 import TreeNode from './tree_node';
-import { backend_root } from '@/app/config/global';
+import { api_root } from '@/app/config/global';
 
 const TreeViewAsync = ({
   defaultExpandAll = false,
@@ -41,7 +41,7 @@ const TreeViewAsync = ({
         resolve();
         return;
       }
-      fetch(`${backend_root}/${nodeUrl}/${key}/children/`)
+      fetch(`${api_root}/${nodeUrl}/${key}/children/`)
         .then((response) => response.json())
         .then((data) => {
           setTreeData((origin) =>
@@ -75,7 +75,7 @@ const TreeViewAsync = ({
   })
 
   useState(() => {
-    fetch(`${backend_root}/${rootUrl}`)
+    fetch(`${api_root}/${rootUrl}`)
       .then((response) => response.json())
       .then((data) => {
         setTreeData(data.map((node) => ({

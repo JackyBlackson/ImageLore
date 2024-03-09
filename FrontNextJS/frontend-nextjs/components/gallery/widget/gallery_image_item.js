@@ -1,5 +1,4 @@
 'use client'
-import { site_title, backend_root } from "@/app/config/global"
 import Image from "next/image";
 import Link from "next/link"
 

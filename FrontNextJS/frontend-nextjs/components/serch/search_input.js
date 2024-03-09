@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Mentions } from 'antd';
-import { backend_root } from '@/app/config/global';
+import { api_root } from '@/app/config/global';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation'
 
@@ -24,7 +24,7 @@ const SearchInput = () => {
     if (!ready) {
       const fetchTags = async () => {
         try {
-          const response = await fetch(`${backend_root}/api/tags/simple`);
+          const response = await fetch(`${api_root}/tags/simple`);
           const data = await response.json();
           completionData['#'] = data
           console.log(completionData)
@@ -37,7 +37,7 @@ const SearchInput = () => {
 
       const fetchUsers = async () => {
         try {
-          const response = await fetch(`${backend_root}/api/users/simple`);
+          const response = await fetch(`${api_root}/users/simple`);
           const data = await response.json();
           completionData['@'] = data
           setCompletionData(completionData)
@@ -49,7 +49,7 @@ const SearchInput = () => {
 
       const fetchFolders = async () => {
         try {
-          const response = await fetch(`${backend_root}/api/folders/simple`);
+          const response = await fetch(`${api_root}/folders/simple`);
           const data = await response.json();
           completionData['/'] = data
           setCompletionData(completionData)

@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import { Pagination } from 'antd';
 import AlertStatic from '../util/alert_static';
 import GalleryImageItem from './widget/gallery_image_item';
-import { backend_root } from '@/app/config/global';
+import { backend_root, api_root } from '@/app/config/global';
 
-const ImageGallery = ( {apiUrl='api/posts/images', searchParam=''} ) => {
+const ImageGallery = ( {apiUrl='posts/images', searchParam=''} ) => {
   const [images, setImages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -13,8 +13,8 @@ const ImageGallery = ( {apiUrl='api/posts/images', searchParam=''} ) => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        console.log('request at: ', `${backend_root}/${apiUrl}?${searchParam}&page=${currentPage}`)
-        const response = await fetch(`${backend_root}/${apiUrl}?${searchParam}&page=${currentPage}`);
+        console.log('request at: ', `${api_root}/${apiUrl}?${searchParam}&page=${currentPage}`)
+        const response = await fetch(`${api_root}/${apiUrl}?${searchParam}&page=${currentPage}`);
         const data = await response.json();
         setImages(data.results);
         setTotalPages(data.count);

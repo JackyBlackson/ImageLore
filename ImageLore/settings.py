@@ -39,6 +39,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "r7qbur.natappfree.cc",
     'jacky-blackon.natapp1.cc',
+    '121.40.90.193',
     site_config.SITE_HOST
 ]
 
@@ -46,6 +47,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://jacky-front.natapp1.cc',
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    'http://121.40.90.193:3000',
     "http://127.0.0.1",
     "http://localhost",
     "http://nginx:80",
@@ -54,6 +56,7 @@ CSRF_TRUSTED_ORIGINS = [
 # CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     'http://jacky-front.natapp1.cc',
+    'http://121.40.90.193:3000',
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://127.0.0.1",

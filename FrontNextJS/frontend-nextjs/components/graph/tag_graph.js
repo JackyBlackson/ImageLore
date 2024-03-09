@@ -1,12 +1,12 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { backend_root } from '@/app/config/global';
+import { api_root } from '@/app/config/global';
 import GraphView from './graph_view';
 import AlertStatic from '../util/alert_static';
 import {flowchartClickCallback} from './tag_flow_chart_callback'
 
-export default function TagGraph({ apiUrl = 'api/tags/relations' }) {
+export default function TagGraph({ apiUrl = 'tags/relations' }) {
   const [ready, setReady] = useState(false)
   const [relations, setRelations] = useState({})
   const [graphContent, setGraphContent] = useState(null)
@@ -92,7 +92,7 @@ export default function TagGraph({ apiUrl = 'api/tags/relations' }) {
     if (!ready) {
       const fetchRelations = async () => {
         try {
-          const response = await fetch(`${backend_root}/${apiUrl}`);
+          const response = await fetch(`${api_root}/${apiUrl}`);
           const data = await response.json();
           setRelations(data)
           console.log('relations: ', data)

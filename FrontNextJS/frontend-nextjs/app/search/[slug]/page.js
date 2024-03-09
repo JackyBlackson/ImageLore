@@ -2,10 +2,6 @@
 
 import ImageGallery from "@/components/gallery/image_gallery"
 import "bootstrap/dist/css/bootstrap.min.css";
-import DetailBigImage from "@/components/gallery/widget/detail_big_image";
-import { backend_root } from "@/app/config/global";
-import { site_title } from "@/app/config/global";
-import { useSearchParams } from 'next/navigation'
 import AlertStatic from "@/components/util/alert_static";
 import SearchInput from "@/components/serch/search_input";
 
@@ -14,7 +10,7 @@ export default function SearchPage({ params }) {
   if (expression) {
     console.log('expr: ', expression)
     return (
-      <ImageGallery apiUrl={`api/posts/images/search`} searchParam={`expr=${encodeURIComponent(expression)}`} />
+      <ImageGallery apiUrl={`posts/images/search`} searchParam={`expr=${encodeURIComponent(expression)}`} />
     )
   } else {
     return (

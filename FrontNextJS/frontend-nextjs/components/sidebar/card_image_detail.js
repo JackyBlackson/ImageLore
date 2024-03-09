@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { backend_root } from '@/app/config/global';
+import { api_root } from '@/app/config/global';
 import Card from './widget/card';
 import BiIcon from '../util/bi_icon';
 import TagView from './widget/tag_view';
@@ -32,7 +32,7 @@ export default function CardImageDetail({ imageId = 12 }) {
             */
             const fetchTags = async () => {
                 try {
-                    const response = await fetch(`${backend_root}/api/posts/images/${imageId}/tags`);
+                    const response = await fetch(`${api_root}/posts/images/${imageId}/tags`);
                     const data = await response.json();
                     setTagList(data)
                     console.log('tagList: ', data)
@@ -51,7 +51,7 @@ export default function CardImageDetail({ imageId = 12 }) {
             */
             const fetchUploader = async (img_data) => {
                 try {
-                    const response = await fetch(`${backend_root}/api/users/${img_data.uploader}`);
+                    const response = await fetch(`${api_root}/users/${img_data.uploader}`);
                     const data = await response.json();
                     setUploader(data)
                     console.log('data: ', img_data)
@@ -75,7 +75,7 @@ export default function CardImageDetail({ imageId = 12 }) {
             */
             const fetchFolder = async (img_data) => {
                 try {
-                    const response = await fetch(`${backend_root}/api/folders/${img_data.folder}`);
+                    const response = await fetch(`${api_root}/folders/${img_data.folder}`);
                     const data = await response.json();
                     setFolder(data)
                 } catch (error) {
@@ -97,7 +97,7 @@ export default function CardImageDetail({ imageId = 12 }) {
             */
             const fetchImages = async () => {
                 try {
-                    const response = await fetch(`${backend_root}/api/posts/images/${imageId}`);
+                    const response = await fetch(`${api_root}/posts/images/${imageId}`);
                     const data = await response.json();
                     setImage(data)
                     await fetchUploader(data)

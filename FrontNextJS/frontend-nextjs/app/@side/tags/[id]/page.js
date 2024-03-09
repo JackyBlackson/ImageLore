@@ -1,7 +1,4 @@
-import ImageGallery from "@/components/gallery/image_gallery"
 import "bootstrap/dist/css/bootstrap.min.css";
-import DetailBigImage from "@/components/gallery/widget/detail_big_image";
-import { backend_root } from "@/app/config/global";
 import { site_title } from "@/app/config/global";
 
 export const metadata = {
@@ -12,6 +9,6 @@ export const metadata = {
 export default function TagDetailPage({ params }) {
   const id = params.id;
   return (
-    <ImageGallery apiUrl={`api/tags/${id}/images`} />
+    <ImageGallery apiUrl={`tags/${id}/images`} />
   )
 }

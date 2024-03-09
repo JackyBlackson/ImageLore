@@ -19,11 +19,11 @@ export const metadata = {
 
 export default function RootLayout({ children, side }) {
 
-  const tag_rootUrl = 'api/tags/roots'
-  const tag_nodeUrl = "api/tags"
+  const tag_rootUrl = 'tags/roots'
+  const tag_nodeUrl = "tags"
 
-  const folder_rootUrl = 'api/folders/roots'
-  const folder_nodeUrl = "api/folders"
+  const folder_rootUrl = 'folders/roots'
+  const folder_nodeUrl = "folders"
 
   const folder_card = <Card
     title={'文件夹列表'}
