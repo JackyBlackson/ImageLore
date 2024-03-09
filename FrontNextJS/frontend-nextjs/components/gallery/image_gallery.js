@@ -27,7 +27,7 @@ const ImageGallery = ( {apiUrl='api/posts/images', searchParam=''} ) => {
     };
 
     fetchImages();
-  }, [currentPage]);
+  }, [currentPage, apiUrl, searchParam]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -39,6 +39,7 @@ const ImageGallery = ( {apiUrl='api/posts/images', searchParam=''} ) => {
         {images.map((image) => (
           <GalleryImageItem
             id={image.id}
+            key={image.id}
             alt={image.name}
             href={`/posts/${image.id}`}
             src={backend_root + image.thumbnail_medium}

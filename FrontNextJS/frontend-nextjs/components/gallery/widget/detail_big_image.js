@@ -6,6 +6,7 @@ import { Divider, Form, Radio, Skeleton, Space, Switch } from 'antd';
 import DisabledContext from 'antd/es/config-provider/DisabledContext';
 import { Slider } from 'antd';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function DetailBigImage({ itemUrl }) {
     const [image, setImage] = useState('')
@@ -13,6 +14,10 @@ export default function DetailBigImage({ itemUrl }) {
     const [ready, setReady] = useState(false)
     const [maxHeight, setMaxHeight] = useState(100)
     const [resizable, setResizable] = useState(true)
+
+    const getRandomInt = (max) => {
+        return Math.floor(Math.random() * max);
+    }
 
     const onResize = ((size) => {
         setMaxHeight(size)

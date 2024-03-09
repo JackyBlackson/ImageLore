@@ -22,7 +22,7 @@ const MermaidGraph = ({
   useEffect(() => {
     console.log('USE EFFECT ON MERMAIDGRAPG: chart=', chart)
     mermaid.contentLoaded();
-  }, []);
+  }, [chart]);
   mermaid.contentLoaded();
   mermaid.flowchartConfig = {
     width: '100%'

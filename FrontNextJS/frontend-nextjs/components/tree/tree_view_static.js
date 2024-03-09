@@ -14,8 +14,6 @@ const TreeViewStatic = () => {
     console.log('Trigger Expand', keys, info);
   };
 
-  useEffect()
-
   return (
     <DirectoryTree
       multiple

@@ -60,8 +60,8 @@ export default function RootLayout({ children, side }) {
       <head>
         <link href="https://cdn.staticfile.org/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" />
         <link href="https://cdn.staticfile.net/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-        <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.3/js/bootstrap.min.js"></script>
-        <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+        <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.3/js/bootstrap.min.js" async ></script>
+        <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js" async ></script>
         
       </head>
       <body className={inter.className}>

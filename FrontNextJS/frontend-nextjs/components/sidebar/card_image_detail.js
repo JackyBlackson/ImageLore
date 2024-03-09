@@ -117,7 +117,7 @@ export default function CardImageDetail({ imageId = 12 }) {
             setReady(true);
             fetchTags()
         }
-    });
+    }, [ready, imageId]);
 
     const content = <table className="table table-hover text-center">
         <tbody>

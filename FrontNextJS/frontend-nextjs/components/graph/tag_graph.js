@@ -105,7 +105,7 @@ export default function TagGraph({ apiUrl = 'api/tags/relations' }) {
       fetchRelations();
       setReady(true);
     }
-  });
+  }, [ready, apiUrl]);
 
   if(graphContent){
     console.log(graphContent)

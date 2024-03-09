@@ -65,7 +65,7 @@ const SearchInput = () => {
       fetchFolders();
       setReady(true)
     }
-  }, []);
+  }, [completionData, ready]);
 
   
 

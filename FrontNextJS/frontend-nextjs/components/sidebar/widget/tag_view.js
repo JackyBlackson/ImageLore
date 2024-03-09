@@ -18,7 +18,10 @@ export default function TagView({
         <>
             <Flex gap="small" wrap="wrap">
                 {tags.map((tag) => (
-                    <Link href={`/tags/${tag.id}`}>
+                    <Link
+                        href={`/tags/${tag.id}`}
+                        key={tag.id}
+                    >
                         <Tag color={tag.color}>
                             <div classname='p-3'>
                                 <span>

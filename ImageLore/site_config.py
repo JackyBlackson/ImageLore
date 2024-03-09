@@ -1,5 +1,6 @@
 SITE_TITLE = 'iMageLore'
-SITE_HOST = 'localhost:8000'
+# SITE_HOST = 'localhost:8000'
+SITE_HOST = 'jacky-blackon.natapp1.cc'
 ROOT_URL = f'http://{SITE_HOST}'
 THUMBNAIL_SIZE_SMALL = 400
 THUMBNAIL_SIZE_MEDIUM = 800

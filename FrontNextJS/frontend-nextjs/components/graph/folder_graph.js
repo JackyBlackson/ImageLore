@@ -83,7 +83,7 @@ export default function FolderGraph({ apiUrl = 'api/folders/relations' }) {
       fetchRelations();
       setReady(true);
     }
-  });
+  }, [ready, apiUrl]);
 
   if (graphContent) {
     console.log(graphContent)
