@@ -84,7 +84,9 @@ const SearchInput = () => {
   if (pathname.indexOf("search") !== -1) {
     let split = pathname.split('/')
     
-    defaultText = decodeURIComponent(split[split.length - 1])
+    if(!(split[split.length - 1] === 'search')){ 
+      defaultText = decodeURIComponent(split[split.length - 1])
+    }
   } else if (pathname.indexOf("tags") !== -1) {
     let split = pathname.split('/')
     let id = Number(split[split.length - 1])
